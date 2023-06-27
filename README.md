@@ -386,7 +386,7 @@ d3.select("body")
 
 <div  dir='ltr'  align='justify'>
 
-  ```javascript
+  ```html
 <!doctype html>
 <html>
 <head>
@@ -431,7 +431,7 @@ d3.select("body")
 
 <div  dir='ltr'  align='justify'>
 
-  ```javascript
+  ```html
 <p>Error: This is error.</p>
 <p>Warning:This is warning.</p>
 
@@ -457,11 +457,82 @@ d3.select("body")
 
 بنابراین تابع های دیتا در D3.js بسیار مهم هستند.
 
+
+<br>
+<br>
+
+
 # Event Handling
 
+کتابخانه D3 مانند دیگر کتابخانه ها انواع event ها را پشتیبانی می کند. ما می توانیم با استفاده از متد ```()d3.selection.on``` هر یک از DOM element ها را به یک event listener وصل کنیم.
 
 
+سینتکس آن:
 
+<div  dir='ltr'  align='justify'>
+
+  ```javascript
+d3.selection.on(type[, listener[, capture]]);
+  ```
+  </div>
+
+
+متد ```()on``` یک event listener  را به همه DOM element های انتخاب شده اضافه می کند. اولین پارامتر event type است مانند "click" یا "mouseover". پارامتر دوم یک تابع است که در زمان اتفاق افتادن event اجرا می شود. 
+
+
+مثال زیر کنترل کردن event های mouseover یا mouseout را نشان می دهد:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<!doctype html>
+<html>
+<head>
+    <style>
+        div {
+            height: 100px;
+            width: 100px;
+            background-color: steelblue;
+            margin:5px;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<div> </div>
+<script>
+    d3.selectAll("div")
+      .on("mouseover", function(){
+          d3.select(this)
+            .style("background-color", "orange");
+
+          // Get current event info
+          console.log(d3.event);
+          
+          // Get x & y co-ordinates
+          console.log(d3.mouse(this));
+      })
+      .on("mouseout", function(){
+          d3.select(this)
+            .style("background-color", "steelblue")
+      });
+</script>
+</body>
+</html>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-18)
+  </div>
+
+
+در مثال بالا دو div element داریم و با استفاده از متد ```selection.on(event)``` برای همه آن ها event های mouseover و mouseout را دریافت می کنیم و تابع های event listener رابه هرکدام اضافه می کنیم. که این تابع ها style را تغییر می دهند.
+
+برای اطلاعات بیشتر در مورد Event handling می توانید [D3 documentation](https://github.com/d3/d3-selection/blob/master/README.md#handling-events) مربوط به آن را بخوانید.
+
+<br>
+<br>
+
+
+# Animation
 
 
 
