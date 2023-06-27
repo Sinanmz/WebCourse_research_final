@@ -9,42 +9,41 @@
 
   # عناوین
 
-- [What is D3.js](#whatisd3.js)
+- [What is D3.js](#what-is-d3.js)
 
-- [Web Standards: HTML, CSS, JavaScript](#webstandards:html,css,javascript)
+- [Web Standards: HTML, CSS, JavaScript](#web-standards:-html,-css,-javascript)
  
-- [Install D3.js](#installd3js)
+- [Install D3.js](#install-d3js)
 
-- [Select DOM Element](#selectdomelement)
+- [Select DOM Element](#select-dom-element)
 
-- [DOM Manipulation](#dommanipulation)
+- [DOM Manipulation](#dom-manipulation)
 
-- [Method Chaining](#methodchaining)
+- [Method Chaining](#method-chaining)
 
-- [Function of Data](#functionofdata)
+- [Function of Data](#function-of-data)
 
-- [Event Handling](#eventhandlint)
+- [Event Handling](#event-handling)
 
 - [Animation](#animation)
 
-- [Data Binding](#databinding)
+- [Data Binding](#data-binding)
 
-- [Load Data from File](#loaddatafromfile)
+- [Load Data from File](#load-data-from-file)
 
-- [Create SVG Elements](#createsvgelements)
+- [Create SVG Elements](#create-svg-elements)
 
-- [Create SVG Chart](#createsvgchart)
-
+- [Create SVG Chart](#create-svg-chart)
 
 - [Scales](#scales)
 
 - [Axes](#axes)
 
-- [Create Bar Chart](#createbarchart)
+- [Create Bar Chart](#create-bar-chart)
 
-- [Create Animated Bar Chart](#createanimatedbarchart)
+- [Create Animated Bar Chart](#create-animated-bar-chart)
 
-- [Learning Resources](#learningresources)
+- [Learning Resources](#learning-resources)
 
 
   
@@ -67,28 +66,13 @@
 
 <div dir='rtl' align='right'>
 
-کتابخانه D3 شیوه های تغییر DOM زیر را شامل می شود، که می توانید بعد از انتخاب کردن elementها با استفاده از ```d3.select()``` یا ```d3.selectAll()``` از آن ها استفاده کنید.
+کتابخانه D3 شیوه های تغییر DOM زیر را شامل می شود، که می توانید بعد از انتخاب کردن elementها با استفاده از ```()d3.select``` یا ```()d3.selectAll``` از آن ها استفاده کنید.
 </div>
-<div dir='rtl'>
 
-| تابع                       | توضیح                                            |
-|----------------------------|--------------------------------------------------|
-| text("content")            | متن element انتخاب شده را تغییر می دهد           |
-| append("element name")     | یک DOM به قبل از آخر DOM انتخاب شده اضافه می‌کند. |
-| insert("element name")     | یک DOM به DOM انتخاب شده اضافه می‌کند.            |
-| remove()                   | یک DOM را پاک می‌کند.                             |
-| html("content")            | محتوای html یک DOM را عوض می‌کند.                 |
-| attr("name", "value")      | مقدار یک ویژگی (attribute) را عوض می‌کند.         |
-| property("name", "value")  | مقدار یک صفت (property) را عوض می‌کند.            |
-| style("name", "value")     | استایل DOM انتخاب شده را عوض می‌کند.              |
-| classed("css class", bool) | یک کلاس را به DOM اضافه یا حذف می‌کند.            |
-
-</div>
-<br>
 <br>
 
-## text 
-از ```d3.selection.text()``` برای اضافه کردن یا تغییر دادن محتوای یک element انتخاب شده استفاده کنید:
+## text("content") 
+از ```()d3.selection.text``` برای اضافه کردن یا تغییر دادن محتوای یک element انتخاب شده استفاده کنید:
 <div  dir='ltr'  align='justify'>
 
   ```html
@@ -103,406 +87,268 @@
   [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-6)
   </div>
 
+  در کد بالا ابتدا با استفاده از ```d3.select("p")``` اولین ```<p>``` را انتخاب کردیم، سپس```text("This is paragraph.").``` عبارت "This is Parapraph" را به پاراگراف انتخاب شده اضافه می کند.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+توجه کنید که اگر از ```()d3.selectall``` استفاده می کردیم، عبارت را به همه عبارت های ```<p>``` اضافه می کرد.
 
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-در این بخش یاد می گیرید چگونه Buffalo را نصب بکنید.
 
- در حال حاضر بر روی این پلتفرم ها تست شده و قابل نصب است:
-- GNU/Linux
-- Mac OSX
-- Windows
-### Requirements
-قبل از نصب کردن مطمئن شوید پیشنیاز های مورد نیاز را نصب شده دارید:
-- A working Go enviroment
-- Go version v1.16.0
+## append("element name")
+ از ```()d3.selection.append``` استفاده کنید تا یک DOM element جدید را ساخته و آن را به انتهای DOM element انتخاب شده استفاده کند.
+ <div  dir='ltr'  align='justify'>
 
-<br/>
+  ```html
+<p>First paragraph</p>
+<p>Second paragraph</p>
 
-#### Frontend Requirements
-نیازمندی های زیر اختیاری هستند، یعنی اگر بخواهید صرفا یک API بسازید یا برنامه خود را به شکل old-fashioned بسازید نیازی یه آن ها ندارید:
-- node version 8 or greater
-- either yarn or npm
-
-<br/>
-
-#### Database Specific Requirements
-اگر به database نیازی ندارید نیز به این نیازمندی ها نیازی ندارید:
-- SQLite3: GCC , or equivalent C compiler for mattn/gp-sqlite3
-
-<br/>
-
-#### Installation
-برای GNU/Linux دستورات زیر را وارد کنید:
-  <div  dir='ltr'  align='justify'>
-
-  ```bash
-     wget https://github.com/gobuffalo/cli/releases/download/v0.18.14/buffalo_0.18.14_Linux_x86_64.tar.gz
-     tar -xvzf buffalo_0.18.14_Linux_x86_64.tar.gz
-     sudo mv buffalo /usr/local/bin/buffalo
+<script>
+    d3.select("body").append("p");
+</script>
   ```
-  </div>
-برای MacOS دستورات زیر را وارد کنید:
-  <div  dir='ltr'  align='justify'>
-
-  ```bash
-     curl -OL https://github.com/gobuffalo/cli/releases/download/v0.18.14/buffalo_0.18.14_Darwin_x86_64.tar.gz
-     tar -xvzf buffalo_0.18.14_Darwin_x86_64.tar.gz
-     sudo mv buffalo /usr/local/bin/buffalo
-     # or if you have ~/bin folder setup in the environment PATH variable
-     mv buffalo ~/bin/buffalo
-  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-7)
   </div>
 
-<br/>
+  در مثال بالا ```d3.select("body")``` یک body element را برمی گرداند و ```.append("p")``` یک ```<p>``` جدید را ساخته و آن را به انتهای ```<body>``` اضافه می کند.
 
-  #### Verify Your Installation
-  شما می توانید برای اطمینان از نصب شدن Buffalo دستور buffalo را در ترمینال خود اجرا کنید:
-    <div  dir='ltr'  align='justify'>
+  شما می توانید به شکل زیر با استفاده از ```()text``` متنی را اضافه کنید.
 
-  ```bash
-     $ buffalo
-Build Buffalo applications with ease
+<div  dir='ltr'  align='justify'>
 
-Usage:
-  buffalo [command]
+  ```html
+<p>First paragraph</p>
+<p>Second paragraph</p>
 
-Available Commands:
-  build       Build the application binary, including bundling of webpack assets
-  completion  Generate the autocompletion script for the specified shell
-  db          [PLUGIN] [DEPRECATED] please use `buffalo pop` instead.
-  destroy     Destroy generated components
-  dev         Run the Buffalo app in 'development' mode
-  fix         Attempt to fix a Buffalo applications API to match version v0.18.6
-  generate    Generate application components
-  help        Help about any command
-  info        Print diagnostic information (useful for debugging)
-  new         Creates a new Buffalo application
-  plugins     tools for working with buffalo plugins
-  pop         [PLUGIN] A tasty treat for all your database needs
-  routes      Print all defined routes
-  setup       Setup a newly created, or recently checked out application.
-  task        Run grift tasks
-  test        Run the tests for the Buffalo app. Use --force-migrations to skip schema load.
-  version     Print the version information
-
-Flags:
-  -h, --help   help for buffalo
-
-Use "buffalo [command] --help" for more information about a command.
+<script>
+    d3.select("body").append("p").text("Third paragraph.");
+</script>>
   ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-8)
   </div>
 
-<br/>
+  در مثال بالا D3 یک ```<p>``` جدید را با متن "Third paragraph" ساخته و آن را به انتهای تگ ```<body/>``` اضافه می کند.
+<br>
 
-  ## Generating a New Project
-  حال که Buffalo را نصب کردید در این بخش یاد می گیرید چگونه یک web application جدید را از اول با استفاده از دستور buffalo شروع کنید.
+## insert("element name")
+با استفاده از ```()d3.selection.insert``` می توانید یک element جدید راساخته و آن را انتهای element انتخاب شده اضافه کنید.
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<div style="border:1px solid" >
+    <p>First paragraph.</p>
+</div>
+
+<script>
+    d3.select("div").insert("p").text("Second paragraph.");
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-9)
+  </div>
+
+  در مثال بالا ```d3.select("div")``` آن div را انتخاب کرده سپس ```insert("p").``` یک ```<p>``` جدید را به انتهای آن اضافه می کند. ```insert("Second paragraph.")``` متن آن را تعیین می کند.
+
+<br>
+
+## remove()
+از ```d3.selection.remove()``` برای پاک کردن DOM element های انتخاب شده می توانید استفاده کنید.
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<p>First paragraph</p>
+<p>Second paragraph</p>
+
+<script>
+    d3.select("p").remove();
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-10)
+  </div>
+
+  در مثال بالا ```d3.select("p")``` اولین ```<p>```  را بر میگرداند و ```()remove.``` آن را پاک می کند.
+
+<br>
+
+## html("content")
+ این متد بخش inner html را در element مشخص شده تعیین می کند.
+
+ <div  dir='ltr'  align='justify'>
+
+  ```html
+<p>First paragraph</p>
+<script>
+    d3.select("p").html("<span>This is new inner html.</span>");
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-11)
+
+  </div>
+
+  در مثال بالا ```html(This was added in HTML ").``` عبارت inner html  را در ```<p>``` تغییر می دهد.
+
+<br>
+
+## attr
+از این متد برای اضافه کردن attributeها به DOM elementهای مشخص شده می توانید استفاده کنید.
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<style>
+    .error {
+        color: red
+    }
+</style>
+<body>
+    <p>Error: This is dummy error.</p>
+    <script>
+        d3.select("p").attr("class","error");
+    </script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-12)
+  </div>
+
+  در مثال بالا ```attr("class", "error").```، باعث اضافه شدن class attribute به ```<p>``` می شود.
   
-  <br/>
+  <br>
 
-  ### Create a New Project
-  هدف Buffalo این است که ساختن یک web application از ابتدا را تا حد امکان ساده و سریع کند، و چه چیزی سریع تر و ساده تر از یک new application generator است؟
-  در ابتدا به دایرکتوری که می خواهید پروژه شما در آن جا باشد بروید، سپس دستور زیر را اجرا کنید:
-  <div  dir='ltr'  align='justify'>
+  ## property("name", "value")
+در مواردی که نمی شوداز attr استفاده کرد، می توان از این متد استفاده کرد برای اضافه کردن attribute
 
-  ```bash
-     buffalo new project-name
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<p>D3</label><input type="checkbox" />
+<p>jQuery</label><input type="checkbox" />
+
+<script>
+    d3.select("input").property("checked",true);
+</script>
   ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-13)
   </div>
-  اگر دستور شما به درستی کار کند با صحنه زیر مواجه می شوید:
-  <div  dir='ltr'  align='justify'>
 
-  ```bash
-     $ buffalo new coke
-DEBU[2022-05-25T11:06:33-05:00] Step: 435aea40
-DEBU[2022-05-25T11:06:33-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:33-05:00] Exec: go mod init coke
-go: creating new go.mod: module coke
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/README.md
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/actions/actions_test.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/actions/app.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/actions/home.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/actions/home_test.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/actions/render.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/cmd/app/main.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/.codeclimate.yml
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/.env
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/fixtures/sample.toml
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/grifts/init.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/inflections.json
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/config/buffalo-app.toml
-DEBU[2022-05-25T11:06:33-05:00] Step: 638bde0d
-DEBU[2022-05-25T11:06:33-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/Dockerfile
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/.dockerignore
-DEBU[2022-05-25T11:06:33-05:00] Step: 7065092d
-DEBU[2022-05-25T11:06:33-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/grifts/db.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/models/models.go
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/models/models_test.go
-DEBU[2022-05-25T11:06:33-05:00] Step: 916dfca0
-DEBU[2022-05-25T11:06:33-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/database.yml
-DEBU[2022-05-25T11:06:33-05:00] Step: ff1c6d38
-DEBU[2022-05-25T11:06:33-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:33-05:00] File: /your/path/coke/.buffalo.dev.yml
-DEBU[2022-05-25T11:06:33-05:00] Step: 103396c6
-DEBU[2022-05-25T11:06:33-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:33-05:00] Exec: go install github.com/gobuffalo/buffalo-pop/v3@latest
-DEBU[2022-05-25T11:06:34-05:00] Step: ae1260b1
-DEBU[2022-05-25T11:06:34-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/config/buffalo-plugins.toml
-DEBU[2022-05-25T11:06:34-05:00] Step: 4992ff46
-DEBU[2022-05-25T11:06:34-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/actions/app.go
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/actions/home.go
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/actions/home_test.go
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/actions/render.go
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/locales/all.en-us.yaml
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/locales/embed.go
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/public/embed.go
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/public/robots.txt
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/templates/_flash.plush.html
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/templates/application.plush.html
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/templates/embed.go
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/templates/home/index.plush.html
-DEBU[2022-05-25T11:06:34-05:00] Step: 69d71878
-DEBU[2022-05-25T11:06:34-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:34-05:00] LookPath: yarn
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/assets/css/_buffalo.scss
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/assets/css/application.scss
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/assets/images/favicon.ico
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/assets/images/logo.svg
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/assets/js/application.js
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/.babelrc
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/package.json
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/postcss.config.js
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/public/assets/keep
-DEBU[2022-05-25T11:06:34-05:00] File: /your/path/coke/webpack.config.js
-DEBU[2022-05-25T11:06:34-05:00] LookPath: yarn
-DEBU[2022-05-25T11:06:34-05:00] Exec: yarn --version
-1.22.17
-DEBU[2022-05-25T11:06:34-05:00] Exec: yarn set version berry
-➤ YN0000: Retrieving https://repo.yarnpkg.com/3.2.1/packages/yarnpkg-cli/bin/yarn.js
-➤ YN0000: Saving the new release in .yarn/releases/yarn-3.2.1.cjs
-➤ YN0000: Done in 0s 637ms
-DEBU[2022-05-25T11:06:37-05:00] Exec: yarn config set enableGlobalCache true
-➤ YN0000: Successfully set enableGlobalCache to true
-DEBU[2022-05-25T11:06:37-05:00] Exec: yarn config set logFilters --json [{"code":"YN0013","level":"discard"}]
-➤ YN0000: Successfully set logFilters to [
-  {
-    code: 'YN0013',
-    text: undefined,
-    pattern: undefined,
-    level: 'discard'
-  }
-]
-DEBU[2022-05-25T11:06:37-05:00] Exec: yarn --version
-3.2.1
-DEBU[2022-05-25T11:06:38-05:00] Exec: yarn install
-DEBU[2022-05-25T11:06:38-05:00] ➤ YN0000: ┌ Resolution step
+در مثال بالا```d3.select("input")``` اولین input را مشخص کرده سپس```property("checked", true)``` مقدار آن را به true تغییر می دهد.
 
-DEBU[2022-05-25T11:06:39-05:00] ➤ YN0032: │ fsevents@npm:2.3.2: Implicit dependencies on node-gyp are discouraged
+<br>
 
-DEBU[2022-05-25T11:06:43-05:00] ➤ YN0000: └ Completed in 5s 401ms
+## style("name", "value")
+از این متد می توان برای تغییر استایل یک DOM استفاده کرد.
 
-DEBU[2022-05-25T11:06:43-05:00] ➤ YN0000: ┌ Fetch step
+<div  dir='ltr'  align='justify'>
 
-DEBU[2022-05-25T11:06:43-05:00] ➤ YN0000: └ Completed
-
-DEBU[2022-05-25T11:06:43-05:00] ➤ YN0000: ┌ Link step
-
-DEBU[2022-05-25T11:06:44-05:00] ➤ YN0000: │ ESM support for PnP uses the experimental loader API and is therefore experimental
-
-DEBU[2022-05-25T11:06:44-05:00] ➤ YN0007: │ @fortawesome/fontawesome-free@npm:5.15.4 must be built because it never has been before or the last one failed
-
-DEBU[2022-05-25T11:06:44-05:00] ➤ YN0000: └ Completed in 0s 906ms
-
-DEBU[2022-05-25T11:06:44-05:00] ➤ YN0000: Done with warnings in 6s 462ms
-
-DEBU[2022-05-25T11:06:44-05:00] Step: bb3c28ed
-DEBU[2022-05-25T11:06:44-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:44-05:00] Exec: go mod tidy
-go: finding module for package github.com/gobuffalo/buffalo
-go: finding module for package github.com/gobuffalo/mw-paramlogger
-go: finding module for package github.com/gobuffalo/buffalo-pop/v3/pop/popmw
-go: finding module for package github.com/gobuffalo/mw-i18n/v2
-go: finding module for package github.com/gobuffalo/buffalo/render
-go: finding module for package github.com/gobuffalo/mw-forcessl
-go: finding module for package github.com/gobuffalo/envy
-go: finding module for package github.com/gobuffalo/mw-csrf
-go: finding module for package github.com/unrolled/secure
-go: finding module for package github.com/markbates/grift/grift
-go: finding module for package github.com/gobuffalo/pop/v6
-go: finding module for package github.com/gobuffalo/suite/v4
-go: found github.com/gobuffalo/buffalo in github.com/gobuffalo/buffalo v0.18.7
-go: found github.com/gobuffalo/buffalo-pop/v3/pop/popmw in github.com/gobuffalo/buffalo-pop/v3 v3.0.4
-go: found github.com/gobuffalo/buffalo/render in github.com/gobuffalo/buffalo v0.18.7
-go: found github.com/gobuffalo/envy in github.com/gobuffalo/envy v1.10.1
-go: found github.com/gobuffalo/mw-csrf in github.com/gobuffalo/mw-csrf v1.0.0
-go: found github.com/gobuffalo/mw-forcessl in github.com/gobuffalo/mw-forcessl v0.0.0-20220514125302-be60179938a4
-go: found github.com/gobuffalo/mw-i18n/v2 in github.com/gobuffalo/mw-i18n/v2 v2.0.1
-go: found github.com/gobuffalo/mw-paramlogger in github.com/gobuffalo/mw-paramlogger v1.0.0
-go: found github.com/unrolled/secure in github.com/unrolled/secure v1.10.0
-go: found github.com/markbates/grift/grift in github.com/markbates/grift v1.5.0
-go: found github.com/gobuffalo/pop/v6 in github.com/gobuffalo/pop/v6 v6.0.4
-go: found github.com/gobuffalo/suite/v4 in github.com/gobuffalo/suite/v4 v4.0.2
-DEBU[2022-05-25T11:06:45-05:00] Exec: go mod download
-DEBU[2022-05-25T11:06:46-05:00] Step: 218a906c
-DEBU[2022-05-25T11:06:46-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:46-05:00] Step: a3cee09e
-DEBU[2022-05-25T11:06:46-05:00] Chdir: /your/path/coke
-DEBU[2022-05-25T11:06:46-05:00] File: /your/path/coke/.gitignore
-DEBU[2022-05-25T11:06:46-05:00] Exec: git init
-hint: Using 'master' as the name for the initial branch. This default branch name
-hint: is subject to change. To configure the initial branch name to use in all
-hint: of your new repositories, which will suppress this warning, call:
-hint:
-hint: 	git config --global init.defaultBranch <name>
-hint:
-hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
-hint: 'development'. The just-created branch can be renamed via this command:
-hint:
-hint: 	git branch -m <name>
-Initialized empty Git repository in /your/path/coke/.git/
-DEBU[2022-05-25T11:06:46-05:00] Exec: git add .
-DEBU[2022-05-25T11:06:46-05:00] Exec: git commit -q -m Initial Commit
-INFO[2022-05-25T11:06:46-05:00] Congratulations! Your application, coke, has been successfully generated!
-INFO[2022-05-25T11:06:46-05:00] You can find your new application at: /your/path/coke
-INFO[2022-05-25T11:06:46-05:00] Please read the README.md file in your new application for next steps on running your application.
+  ```html
+<p>Error: This is dummy error.</p>
+<script>
+    d3.select("p").style("color", "red")
+</script>
   ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-14)
   </div>
-  با اجرای این دستور یک Buffalo application به نام project-name در دایرکتوری شما ساخته می شود از جمله مواردی که این دستور اضافه می کند می توان به موارد زیر اشاره کرد:
 
-  - همه Go depenedency های مورد نیاز
-  - شروع کردن یک Git repository
-  - Frontend dependency های مورد نیاز
+  در مثال بالا ```style("color", "red")``` با اضافه شدن رنگ فونت red به ```<p>``` می شود.
 
+<br>
 
+## classed("css class", bool)
 
-  ### Create a Customized App
-  آن default setup ای که Buffalo انتخاب می کند خیلی خوب است اما ممکن است شما بخواهید آن را به شکلی که دوست دارید تغییر بدهید، برای مثال از database mariadb به جای postgres استفاده بکنید. برای این نوع کار ها از دستور زیر استفاده کنید تا لیست flag های مورد نیاز برای این کار را ببینید:
-  <div  dir='ltr'  align='justify'>
+ با استفاده از این متد می توان class attribute ها را مشخص کرد.
 
-  ```bash
-     $ buffalo help new
-    Creates a new Buffalo application
+<div  dir='ltr'  align='justify'>
 
-    Usage:
-    buffalo new [name] [flags]
+  ```html
+<style>
+    .error {
+        color: red
+    }
+</style>
+<body>
+    <p>This is error.</p>
 
-    Flags:
-          --api                  skip all front-end code and configure for an API server
-          --ci-provider string   specify the type of ci file you would like buffalo to generate [none, travis, gitlab-ci, circleci] (default "none")
-        --config string        config file (default is $HOME/.buffalo.yaml)
-        --db-type string       specify the type of database you want to use [cockroach, mariadb, mysql, postgres, sqlite3] (default "postgres")
-     -d, --dry-run              dry run
-     -f, --force                delete and remake if the app already exists
-     -h, --help                 help for new
-          --module string        specify the root module (package) name. [defaults to 'automatic']
-         --skip-config          skips using the config file
-         --skip-docker          skips generating the Dockerfile
-          --skip-pop             skips adding pop/soda to your app
-          --skip-webpack         skips adding Webpack to your app
-          --skip-yarn            use npm instead of yarn for frontend dependencies management
-          --vcs string           specify the Version control system you would like to use [none, git, bzr] (default "git")
-    -v, --verbose              verbosely print out the go get commands
+    <script>
+        d3.select("p").classed('error', true);
+    </script>
+</body>
   ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-15)
   </div>
-  همانطور که می بینید می توانین انتخاب کنید که یک API application ایجاد کنید و کلا بخش های Front end را skip کنید و ...
 
-<br/>
+در مثال بالا ```classed('error', true)``` باعث اضافه شدن کلاس error به ```<p>``` می شود.
+ورودی دوم بولین است که اگر true باشد باعث اضافه شدن class شده در غیر این صورت باعث حذف شدن آن می شود.
 
-  ### Override Default Config
-  در حالت عادی دستور buffalo new به دنبال یک configuration file در آدرس $HOME/ .buffalo.yml می گردد و اگر وجود داشت تلاش می کند طبق آن عمل کند. شما می توانید با استفاده از flag ها آن را override  کنید و آن های که دوست دارید را پاس بدهید و یا با استفاده از --config آدرس یک فایل YAML دیگری را بدهید. همچنین استفاده از --skip-config باعث می شود که هر فایل  config را نادیده بگیرد و فقط بر اساس flag هایی که داده می شود عمل کند.
-  
-  یک نمونه از فایل config به شکل زیر است:
+<br>
+<br>
 
-  <div  dir='ltr'  align='justify'>
+# Method Chaining
 
-  ```yaml
-    skip-yarn: true
-    db-type: postgres
-    bootstrap: 4
-    with-dep: true
+ در بخش های قبل تابع های خود را با استفاده از نقطه به هم وصل کردیم، به این کار "chain syntax" گفته می شود. اگر با JQuery آشنا باشید کد زیر برایتان آشناست:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+
   ```
   </div>
 
-<br/>
+ کتابخانه D3 از تکنیک مشابهی برای chain  کردن متد ها استفاده می کند:
 
-  ### Running Your Application in Development
-  یکی از بدی های GO development  این است که اگر تغییری در برنامه خود بدهیم نیاز است اپلیکیشن خود را متوقف کنیم و دوباره آن را راه بیاندازیم تا تغییرات را ببینیم. اما در Buffalo کافیست دستور زیر را اجرا کنیم:
-  <div  dir='ltr'  align='justify'>
+<div  dir='ltr'  align='justify'>
 
-  ```bash
-    buffalo dev
-  ```
-  </div>
-  این دستور فایل های .go و .html و فولدر asset را زیر نظر می گیرد و هرگاه تغییری در آن بدهید آن را نشان می دهد.
-  کافیست این دستور را اجرا کنید و به localhost:3000 برویم تا تغییرات را ببینیم.
-  
-  <br/>
+  ```html
 
-  #### Run the dev server on a custom port
-  گاهی پورت 3000 در دستگاه شما مشغول است و باید برنامه را بر روی پورت دیگری اجرا کنید، این کار با دستور زیر انجام می شود:
-  <div  dir='ltr'  align='justify'>
-
-  ```bash
-    PORT=3001 buffalo dev
   ```
   </div>
 
-<br/>
+ خروجی متد اول به عنوان ورودی متد بعدی وارد آن می شود.
 
-   ## Directory Structure
-بوفالو یک ساختار directory مینیمال را برای شما فراهم می کند تا بتوانید روی پروژه کار بکنید. این ساختار به تمیز نگه داشتن پروژه شما کمک می کند و به عملکرد بهتر generator ها کمک می کند. 
 
-حال با ساختار یک پروژه Buffalo آشنا می شویم.
 
-<br/>
+ ما می توانسیتیم D3 code خود را به شکل زیر بنویسیم:
 
-### The Root Directory
+ <div  dir='ltr'  align='justify'>
+
+  ```html
+
+  ```
+  </div>
+
+
+ اما استفاده از method chaining کد ما را کوتاه تر و تمیز تر می کند:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+
+  ```
+  </div>
+
+
+ در کد بالا ```d3.select("body")``` باعث انتخاب شده body element شده و یک رفرنس از آن را برمیگرداند و به متد بعدی می دهد که ```appent()``` است.
+
+
+ حال متد ```appent("p")``` رفرنس body element را دریافت کرده و یک ```p>``` element> جدید را ساخته و آن را به element اس که دریافت کرده اضافه می کند و رفرنس این element جدید را به متد بعدی می دهد.
+
+
+ متد ```text("Hello World!")``` آن paragraph element را از متد قبل دریافت کرده و متن را به آن اضافه می کند.
+
+
+ دقت کنید می توان chained method ها را در یک فرمت خوانا تر نوشت:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+
+  ```
+  </div>
+
+
+
+
+<br>
+<br>
+<br>
+<br>### The Root Directory
  نمودار زیر ساختار یک پروژه Buffalo را نشان می دهد:
 
  <div  dir='ltr'  align='justify'>
