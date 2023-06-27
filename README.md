@@ -39,7 +39,7 @@
 
 - [Create Animated Bar Chart](#create-animated-bar-chart)
 
-- [Learning Resources](#learning-resources)
+- [Resources](#resources)
 
 
   
