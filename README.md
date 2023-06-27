@@ -1,5 +1,5 @@
 <div dir='rtl' align='justify'>
-<p align="center"><img src="https://gobuffalo.io/images/logo.svg"/></p>
+<p align="center"><img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*1HC_tkU_Kt-VjAgCd7fdRA.png"/></p>
   
 <p align="center">
     گردآوردندگان:  سینا نمازی، امیرحسین اکبری، محمد معین صمدی آزاد  
@@ -9,7 +9,7 @@
 
   # عناوین
 
-- [What is D3.js](#what-is-d3.js)
+- [What is D3.js](#what-is-d3js)
 
 - [Web Standards: HTML, CSS, JavaScript](#web-standards:-html,-css,-javascript)
  
@@ -31,11 +31,7 @@
 
 - [Load Data from File](#load-data-from-file)
 
-- [Create SVG Elements](#create-svg-elements)
-
-- [Create SVG Chart](#create-svg-chart)
-
-- [Scales](#scales)
+<!-- - [Scales](#scales) -->
 
 - [Axes](#axes)
 
@@ -1393,4 +1389,640 @@ d3.json("/data/users.json", function(error, data) {
   اگر مشکلی هنگام load کردن دیتا وجود داشته باشد D3  یک error object  برمی گرداند.
 
 
-# Scales
+# Axes
+
+ در این بخش با نحوه ایجاد محور ها در D3 آشنا می شویم.
+
+
+نمودار های 2 بعدی، 2 محور دارند، یک محور افقی یا محور x و یک محور عمودی یا محور y.
+
+کتابخانه D3 تابع های زیر را برای رسم محور ها فراهم می کند:
+
+ - تابع ```()d3.axisTop``` : محور افقی بالا را رسم می کند.
+ - تابع ```()d3.axisRight``` : محور عمودی راست را رسم می کند.
+ - تابع ```()d3.axisBottom``` : محور افقی پایین را رسم می کند.
+ - تابع ```()d3.axisLeft``` : محور عمودی چپ را رسم می کند.
+
+
+
+حال نحوه اضافه شدن محور به نمودار را بررسی می کنیم:
+
+
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+<script>
+    var width = 400,
+        height = 100;
+
+    var data = [10, 15, 20, 25, 30];
+    
+    // Append SVG 
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+    // Create scale
+    var scale = d3.scaleLinear()
+                  .domain([d3.min(data), d3.max(data)])
+                  .range([0, width - 100]);
+
+    // Add scales to axis
+    var x_axis = d3.axisBottom()
+                   .scale(scale);
+
+    //Append group and insert axis
+    svg.append("g")
+       .call(x_axis);
+
+</script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-46)
+  </div>
+  مثال بالا نتیجه پایین را می دهد:
+
+<p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/x-axes.png"/></p>
+
+
+در کد بالا با استفاده از ```;var width = 400, height = 100``` میزان طول و عرض SVG را مشخص کردیم. سپس با استفاده از ```;var data = [10, 15, 20, 25, 30]``` دیتاست خود را مشخص کردیم.
+سپس SVG element خود را ساختیم. سپس یک linear scale ساخته و دامنه و بازه آن را مشخص کردیم. در نهایت با استفاده از ```()d3.axisBottom``` یک محور افقی را ایجاد کرده و scale ای که ساختیم را به آن می دهیم.
+
+<br>
+
+به شکل مشابهی می توان یک محور عمودی  رسم کرد:
+
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+<script>
+    var width = 400, height = 400;
+
+    var data = [10, 15, 20, 25, 30];
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+    var scale = d3.scaleLinear()
+                  .domain([d3.min(data), d3.max(data)])
+                  .range([height/2, 0]);
+
+    var y_axis = d3.axisLeft()
+                  .scale(scale);
+
+    svg.append("g")
+       .attr("transform", "translate(50, 10)")
+       .call(y_axis);
+
+</script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-47)
+  </div>
+  مثال بالا نتیجه پایین را می دهد:
+
+<p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/y-axis.png"/></p>
+
+<br>
+
+حال به شکل زیر می توان هر دو محور را با هم رسم کرد:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+<script>
+var width = 400, height = 100;
+
+var data = [10, 15, 20, 25, 30];
+var svg = d3.select("body")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var xscale = d3.scaleLinear()
+    .domain([0, d3.max(data)])
+    .range([0, width - 100]);
+
+var yscale = d3.scaleLinear()
+        .domain([0, d3.max(data)])
+        .range([height/2, 0]);
+
+var x_axis = d3.axisBottom()
+        .scale(xscale);
+
+var y_axis = d3.axisLeft()
+        .scale(yscale);
+
+    svg.append("g")
+       .attr("transform", "translate(50, 10)")
+       .call(y_axis);
+
+var xAxisTranslate = height/2 + 10;
+
+    svg.append("g")
+            .attr("transform", "translate(50, " + xAxisTranslate  +")")
+            .call(x_axis)
+
+</script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-48)
+  </div>
+  مثال بالا نتیجه پایین را می دهد:
+
+<p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/axes-in-d3.png"/></p>
+
+<br>
+
+برای مطالعه بیشتر در مورد محور ها در D3 به [اینجا](https://github.com/d3/d3-axis) مراجعه کنید.
+
+
+<br>
+<br>
+
+# Create Bar Chart
+
+ در این بخش یاد می گیریم چگونه Bar chart را با استفاده از کتابخانه D3 بسازیم.
+
+ در این بخش از دیتاست زیر استفاده می کنیم که ارزش یک کمپانی را در طول چند سال نشان می دهد:
+
+ <div  dir='ltr'  align='justify'>
+
+  ```csv
+year,value
+2011,45
+2012,47
+2013,52
+2014,70
+2015,75
+2016,78
+  ```  
+  </div>
+
+  قدم اول: با ساختن یک SVG element و قرار دادن Scale برای آن شروع می کنیم:
+
+  <div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+<svg width="600" height="500"></svg>
+<script>
+
+    var svg = d3.select("svg"),
+        margin = 200,
+        width = svg.attr("width") - margin,
+        height = svg.attr("height") - margin;
+
+
+    var xScale = d3.scaleBand().range ([0, width]).padding(0.4),
+        yScale = d3.scaleLinear().range ([height, 0]);
+
+    var g = svg.append("g")
+               .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+</script>
+</body>
+  ```  
+  </div>
+
+  <br>
+
+  قدم دوم: دیتای خود را از فایل csv لود کرده و محور ها را به SVG که در مرحله قبل ساختیم اضافه می کنیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+<svg width="600" height="500"></svg>
+<script>
+
+    var svg = d3.select("svg"),
+        margin = 200,
+        width = svg.attr("width") - margin,
+        height = svg.attr("height") - margin;
+
+
+    var xScale = d3.scaleBand().range ([0, width]).padding(0.4),
+        yScale = d3.scaleLinear().range ([height, 0]);
+
+    var g = svg.append("g")
+               .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+    d3.csv("XYZ.csv", function(error, data) {
+        if (error) {
+            throw error;
+        }
+
+        xScale.domain(data.map(function(d) { return d.year; }));
+        yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+        g.append("g")
+         .attr("transform", "translate(0," + height + ")")
+         .call(d3.axisBottom(xScale));
+
+        g.append("g")
+         .call(d3.axisLeft(yScale).tickFormat(function(d){
+             return "$" + d;
+         }).ticks(10))
+         .append("text")
+         .attr("y", 6)
+         .attr("dy", "0.71em")
+         .attr("text-anchor", "end")
+         .text("value");
+});
+</script>
+</body>
+  ```  
+  </div>
+
+  <br>
+
+  خروجی تا اینجا به شکل زیر است:
+
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/bar-chart2.png"/></p>
+
+<br>
+
+قدم سوم: میله ها (bars) هایی که به مقادیر دیتای ما وابسته هستند را می سازیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<!doctype html>
+<html>
+<head>
+    <style>
+        .bar {
+            fill: steelblue;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<svg width="600" height="500"></svg>
+<script>
+var svg = d3.select("svg"),
+            margin = 200,
+            width = svg.attr("width") - margin,
+            height = svg.attr("height") - margin
+
+
+var xScale = d3.scaleBand().range([0, width]).padding(0.4),
+            yScale = d3.scaleLinear().range([height, 0]);
+
+var g = svg.append("g")
+            .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+    d3.csv("XYZ.csv", function(error, data) {
+        if (error) {
+            throw error;
+        }
+
+        xScale.domain(data.map(function(d) { return d.year; }));
+        yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+        g.append("g")
+         .attr("transform", "translate(0," + height + ")")
+         .call(d3.axisBottom(xScale));
+
+        g.append("g")
+         .call(d3.axisLeft(yScale).tickFormat(function(d){
+             return "$" + d;
+         }).ticks(10));
+
+
+        g.selectAll(".bar")
+         .data(data)
+         .enter().append("rect")
+         .attr("class", "bar")
+         .attr("x", function(d) { return xScale(d.year); })
+         .attr("y", function(d) { return yScale(d.value); })
+         .attr("width", xScale.bandwidth())
+         .attr("height", function(d) { return height - yScale(d.value); });
+    });
+</script>
+</body>
+</html>
+  ```  
+  </div>
+
+  <br>
+
+حال خروجی به شکل زیر است:
+
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/bar-chart3.png"/></p>
+
+<br>
+
+<br>
+
+## Add Labels to Bar Chart
+
+برای اضافه کردن label  باید به SVG خود text element هایی را اضافه کنیم.
+
+برای اضافه کردن عنوان این گونه عمل می کنیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```js
+svg.append("text")
+   .attr("transform", "translate(100,0)")
+   .attr("x", 50)
+   .attr("y", 50)
+   .attr("font-size", "24px")
+   .text("XYZ Foods Stock Price")
+  ```  
+  </div>
+
+  <br>
+
+  برای محور افقی، به شکل زیر text element را به x-axis group element اضافه می کنیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```js
+g.append("g")
+ .attr("transform", "translate(0," + height + ")")
+ .call(d3.axisBottom(xScale))
+ .append("text")
+ .attr("y", height - 250)
+ .attr("x", width - 100)
+ .attr("text-anchor", "end")
+ .attr("stroke", "black")
+ .text("Year");
+  ```  
+  </div>
+
+  <br>
+
+  برای محور عمودی، به شکل زیر text element را به y-axis group element اضافه می کنیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```js
+g.append("g")
+ .call(d3.axisLeft(yScale)
+ .tickFormat(function(d){
+     return "$" + d;
+ }).ticks(10))
+ .append("text")
+ .attr("transform", "rotate(-90)")
+ .attr("y", 6)
+ .attr("dy", "-5.1em")
+ .attr("text-anchor", "end")
+ .attr("stroke", "black")
+ .text("Stock Price");
+  ```  
+  </div>
+
+
+  <br>
+  <br>
+  
+  در نهایت همه کد ساختن یک Bar chart:
+
+  <div  dir='ltr'  align='justify'>
+
+  ```html
+<!doctype html>
+<html>
+<head>
+    <style>
+        .bar {
+            fill: steelblue;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+<body>
+<svg width="600" height="500"></svg>
+<script>
+
+    var svg = d3.select("svg"),
+        margin = 200,
+        width = svg.attr("width") - margin,
+        height = svg.attr("height") - margin
+
+    svg.append("text")
+       .attr("transform", "translate(100,0)")
+       .attr("x", 50)
+       .attr("y", 50)
+       .attr("font-size", "24px")
+       .text("XYZ Foods Stock Price")
+
+    var xScale = d3.scaleBand().range([0, width]).padding(0.4),
+        yScale = d3.scaleLinear().range([height, 0]);
+
+    var g = svg.append("g")
+               .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+    d3.csv("XYZ.csv", function(error, data) {
+        if (error) {
+            throw error;
+        }
+
+        xScale.domain(data.map(function(d) { return d.year; }));
+        yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+        g.append("g")
+         .attr("transform", "translate(0," + height + ")")
+         .call(d3.axisBottom(xScale))
+         .append("text")
+         .attr("y", height - 250)
+         .attr("x", width - 100)
+         .attr("text-anchor", "end")
+         .attr("stroke", "black")
+         .text("Year");
+
+        g.append("g")
+         .call(d3.axisLeft(yScale).tickFormat(function(d){
+             return "$" + d;
+         })
+         .ticks(10))
+         .append("text")
+         .attr("transform", "rotate(-90)")
+         .attr("y", 6)
+         .attr("dy", "-5.1em")
+         .attr("text-anchor", "end")
+         .attr("stroke", "black")
+         .text("Stock Price");
+
+        g.selectAll(".bar")
+         .data(data)
+         .enter().append("rect")
+         .attr("class", "bar")
+         .attr("x", function(d) { return xScale(d.year); })
+         .attr("y", function(d) { return yScale(d.value); })
+         .attr("width", xScale.bandwidth())
+         .attr("height", function(d) { return height - yScale(d.value); });
+    });
+</script>
+</body>
+</html>
+  ```  
+  </div>
+
+  کد بالا، نمودار زیر را نتیجه می دهد:
+
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/bar-chart-in-d3.png"/></p>
+
+<br>
+<br>
+
+
+# Create Animated Bar Chart
+
+حال می توان با استفاده از آنچه از قبل یاد گرفتیم، animation ها را به نموداری که در مرحله قبل ساختیم اضافه کنیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```js
+<!doctype html>
+<html>
+<head>
+    <style>
+        .bar {
+            fill: steelblue;
+        }
+
+        .highlight {
+            fill: orange;
+        }
+</style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<svg width="600" height="500"></svg>
+<script>
+
+    var svg = d3.select("svg"),
+        margin = 200,
+        width = svg.attr("width") - margin,
+        height = svg.attr("height") - margin;
+
+    svg.append("text")
+       .attr("transform", "translate(100,0)")
+       .attr("x", 50)
+       .attr("y", 50)
+       .attr("font-size", "24px")
+       .text("XYZ Foods Stock Price")
+
+    var x = d3.scaleBand().range([0, width]).padding(0.4),
+        y = d3.scaleLinear().range([height, 0]);
+
+    var g = svg.append("g")
+            .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+    d3.csv("xyz.csv", function(error, data) {
+        if (error) {
+            throw error;
+        }
+
+        x.domain(data.map(function(d) { return d.year; }));
+        y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+        g.append("g")
+         .attr("transform", "translate(0," + height + ")")
+         .call(d3.axisBottom(x))
+         .append("text")
+         .attr("y", height - 250)
+         .attr("x", width - 100)
+         .attr("text-anchor", "end")
+         .attr("stroke", "black")
+         .text("Year");
+
+        g.append("g")
+         .call(d3.axisLeft(y).tickFormat(function(d){
+             return "$" + d;
+         }).ticks(10))
+         .append("text")
+         .attr("transform", "rotate(-90)")
+         .attr("y", 6)
+         .attr("dy", "-5.1em")
+         .attr("text-anchor", "end")
+         .attr("stroke", "black")
+         .text("Stock Price");
+
+        g.selectAll(".bar")
+         .data(data)
+         .enter().append("rect")
+         .attr("class", "bar")
+         .on("mouseover", onMouseOver) //Add listener for the mouseover event
+         .on("mouseout", onMouseOut)   //Add listener for the mouseout event
+         .attr("x", function(d) { return x(d.year); })
+         .attr("y", function(d) { return y(d.value); })
+         .attr("width", x.bandwidth())
+         .transition()
+         .ease(d3.easeLinear)
+         .duration(400)
+         .delay(function (d, i) {
+             return i * 50;
+         })
+         .attr("height", function(d) { return height - y(d.value); });
+    });
+    
+    //mouseover event handler function
+    function onMouseOver(d, i) {
+        d3.select(this).attr('class', 'highlight');
+        d3.select(this)
+          .transition()     // adds animation
+          .duration(400)
+          .attr('width', x.bandwidth() + 5)
+          .attr("y", function(d) { return y(d.value) - 10; })
+          .attr("height", function(d) { return height - y(d.value) + 10; });
+
+        g.append("text")
+         .attr('class', 'val') 
+         .attr('x', function() {
+             return x(d.year);
+         })
+         .attr('y', function() {
+             return y(d.value) - 15;
+         })
+         .text(function() {
+             return [ '$' +d.value];  // Value of the text
+         });
+    }
+
+    //mouseout event handler function
+    function onMouseOut(d, i) {
+        // use the text label class to remove label on mouseout
+        d3.select(this).attr('class', 'bar');
+        d3.select(this)
+          .transition()     // adds animation
+          .duration(400)
+          .attr('width', x.bandwidth())
+          .attr("y", function(d) { return y(d.value); })
+          .attr("height", function(d) { return height - y(d.value); });
+
+        d3.selectAll('.val')
+          .remove()
+    }
+
+</script>
+</body>
+</html>
+  ```  
+  </div>
+
+<br>
+
+  نتیجه کد بالا:
+
+<p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/bar-chart-animation.png"/></p>
+
+
+<br>
+
+<br>
+
+# Resources
+-   [tutorialsteacher.com](https://www.tutorialsteacher.com/d3js)
+
+</div>
