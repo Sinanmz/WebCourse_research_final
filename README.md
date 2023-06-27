@@ -188,7 +188,7 @@
 
 <br>
 
-## attr
+## attr("name", "value")
 از این متد برای اضافه کردن attributeها به DOM elementهای مشخص شده می توانید استفاده کنید.
 
 <div  dir='ltr'  align='justify'>
@@ -534,6 +534,136 @@ d3.selection.on(type[, listener[, capture]]);
 
 # Animation
 
+در این بخش ساختن animation ها را با استفاده از D3 یاد می گیریم.
+
+کتابخانه D3 پروسه ساختن animationها را با استفاده از transitionها ساده می کند. transitionها از DOM selectionها با استفاده از متد ```()selection.transition``` ساخته می شوند.
+
+
+این animation ها چیزی جز transition از یک فرم به فرم دیگر نیستند. در اینجا یک animation در واقع یک transition از حالت ابتدایی به حالت انتهایی یک DOM element است.
+
+<br>
+
+## transtion()
+
+متد ```()d3.selection.transition``` نشان دهنده شروع transition است و سپس تابع های transition متفاوت می توانند به elementهای انتخاب شده اعمال شوند.
+
+مثال زیر تغییر رنگ بک گراند یک div element را با استفاده از animation ها نشان می دهد:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<!doctype html>
+<html>
+<head>
+<style>
+    #container {
+        height: 100px;
+        width: 100px;
+        background-color: black;
+    }
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        d3.select("#container")
+          .transition()
+          .duration(1000)
+          .style("background-color", "red");
+    </script>
+</body>
+</html>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-19)
+  </div>
+
+در مثال بالا از تابع ```()transition``` برای ایجاد یک transition استفاده می کنیم که رنگ container' element' را از مشکی به قرمز تغییر می دهد. سپس تابع ```()duration``` را فراخواندیم تا مدت این تغییر را مشخص کنیم.
+
+
+شما همچنین می توانید یک transition را ساخته و آن را در یک متغیر قرار داده سپس از آن برای اضافه کردن animation  به element های مختلف استفاده کنید.
+
+<div  dir='ltr'  align='justify'>
+
+  ```javascript
+var t = d3.transition()
+        .duration(500)
+
+    d3.select("#container")
+      .transition(t)
+      .style("background-color", "red");
+  ```
+  </div>
+
+<br>
+
+## transition.ease()
+
+تابع ```ease()``` برای مشخص و کنترل کردن جنبش یک transition استفاده می شود.
+
+برای اطلاع از تابع های متفاوت ease می توانید به [اینجا](https://bl.ocks.org/d3noob/1ea51d03775b9650e8dfd03474e202fe) مراجه کنید.
+
+<br>
+
+## transition.delay()
+
+تابع ```()delay``` مدت تاخیر را برای هر کدام از elementهایی که transition روی آن ها اعمال می شود را تعیین می کند. آن transition بعد از مدت مشخص شده شروع می شود.
+
+
+در مثال زیر دو bar را animate می کنیم. اول، ارتفاع bar اول را از 20px به 100px تغییر می دهیم. سپس با تاخیر 2000 میلی ثانیه برای bar  دوم همین کار را انجام می دهیم.
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+<script>
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", 500)
+        .attr("height", 500);
+
+
+    var bar1 = svg.append("rect")
+        .attr("fill", "blue")
+        .attr("x", 100)
+        .attr("y", 20)
+        .attr("height", 20)
+        .attr("width", 10)
+
+    var bar2 = svg.append("rect")
+        .attr("fill", "blue")
+        .attr("x", 120)
+        .attr("y", 20)
+        .attr("height", 20)
+        .attr("width", 10)
+
+    update();
+
+function update() {
+    bar1.transition()
+        .ease(d3.easeLinear)
+        .duration(2000)
+        .attr("height",100)
+
+    bar2.transition()
+        .ease(d3.easeLinear)
+        .duration(2000)
+        .delay(2000)
+        .attr("height",100)
+}
+</script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-20)
+  
+  </div>
+
+در کد بالا ابتدا دو مستطیل را به SVG اضافه کردیم. bar اول در مکان [20, 100] قرار گرفته و bar دوم در مکان [20, 120] قرار می گیرد که هر دو دارای ارتفاع 20px و عرض 10px هستند.
+
+در تابع update ابتدا bar اول را با استفاده از linear ease ارتفاعش را به 100px افزایش می دهیم و مدت این animation را برابر با 2000ms قرار می دهیم. همین کار را برای bar دوم هم انجام می دهیم اما این بار با 2000ms تاخیر.
+
+می توانید transition function های فراهم شده در D3 را در [D3 API Documentation](https://github.com/d3/d3/blob/master/API.md#transitions-d3-transition) ببینید.
 
 
 
