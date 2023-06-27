@@ -353,6 +353,116 @@ d3.select("body")
 
 # Function of Data
 
+ در قسمت DOM manipulation با تابع هایی آشنا شدیم . هر کدام از این تابع می توانند به عنوان پارامتر ورودی یک مقدار ثابت یا یک تابع بگیرند. این تابع، تابعی از دیتا است. برای مثال:
+
+<div  dir='ltr'  align='justify'>
+
+  ```javascript
+.text(function(d) {
+    return d;
+});
+  ```
+  </div>
+
+ در این تابع ورودی می توانیم هر منظقی برای دستکاری دیتا قرار دهیم. این ها anonymous function هستند، یعنی این تابع ها نامی ندارند.
+
+ به غیر از پارامتر data یا (d) دو نوع پارامتر دیگر برای ما فراهم شده است:
+
+<div  dir='ltr'  align='justify'>
+
+  ```javascript
+.text(function (d, i) {
+    console.log(d); // the data element
+    console.log(i); // the index element
+    console.log(this); // the current DOM object
+
+    return d;
+});
+  ```
+  </div>
+
+
+ به مثال زیر دقت کنید:
+
+<div  dir='ltr'  align='justify'>
+
+  ```javascript
+<!doctype html>
+<html>
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <p></p>
+    <p></p>
+    <p></p>
+
+    <script>
+        var data = [100, 200, 300];
+        var paragraph = d3.select("body")
+                .selectAll("p")
+                .data(data)
+                .text(function (d, i) {
+                    console.log("d: " + d);
+                    console.log("i: " + i);
+                    console.log("this: " + this);
+
+                    return d;
+                });
+    </script>
+</body>
+</html>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-16)
+  </div>
+
+ در مثال بالا پارامتر "d" به شما data element را می دهد، "i" به شما ایندکس آن را در آرایه می دهد و ```this``` یک رفرنس به DOM element کنونی است که در اینجا یک paragraph element است.
+
+<br>
+
+## Dynamic Properties
+
+همزمان با دستکاری  DOM element شاید بخواهیم ویژگی ها یا attribute های مشخصی را به آن اضافه کنیم.
+
+
+تابع های دیتا برای مشخص کردن این ویژگی ها به شکل dynamic خوب هستند.
+
+برای مثال اگر می خواهید رنگ پاراگرافتان بر اساس محتوای آن باشد می توانید آن را به صورت زیر انجام دهید:
+
+<div  dir='ltr'  align='justify'>
+
+  ```javascript
+<p>Error: This is error.</p>
+<p>Warning:This is warning.</p>
+
+<script>
+    d3.selectAll("p").style("color", function(d, i) {
+            var text = this.innerText;
+        
+            if (text.indexOf("Error") >= 0) {
+                return "red";
+            } else if (text.indexOf("Warning") >= 0) {
+                return "yellow";
+            }
+    });
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-17)
+  </div>
+
+
+در مثال بالا ```d3.selectAll("p")``` همه ```<p>``` را انتخاب کرده و متد ```()style``` به آن ها color attribute بر اساس خروجی تابع دیتا اضافه می کند.
+
+منطق این تابع به این گونه است که هرگاه در element انتخاب شده کلمات کلیدی "Error" یا "Warning" باشد، رنگ قرمز را برمی گرداند در غیر این صورت رنگ زرد را بر می گرداند.
+
+بنابراین تابع های دیتا در D3.js بسیار مهم هستند.
+
+# Event Handling
+
+
+
+
+
 
 
 
