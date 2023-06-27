@@ -666,4 +666,731 @@ function update() {
 می توانید transition function های فراهم شده در D3 را در [D3 API Documentation](https://github.com/d3/d3/blob/master/API.md#transitions-d3-transition) ببینید.
 
 
+<br>
+<br>
 
+# Data Binding
+
+در این بخش یاد می گیرید چگونه دیتا را به DOM element ها وصل کنید و element های جدید را بر اساس دیتای خود بسازید.
+
+کتابخانه D3 متد های زیر را برای Data Binding دارد.
+
+
+<br>
+
+## data()
+
+تابع ```()data``` برای متصل کردن آرایه‌ای از داده‌ها به DOM element انتخاب‌شده استفاده می‌شود و بخش انتخاب شده را آپدیت و return می کند. D3 با انواع داده‌هایی نظیر آرایه‌ها، CSV, TSV, JSON, XML و … کار می‌ کند.
+
+می توانید دو نوع مقدار را به تابع ```()data``` وارد کنید، آرایه ای از مقادیر و یا تابعی از دیتا که قبل تر با آن آشنا شدیم.
+
+مثال زیر اتصال دیتا به شکل آرایه را به DOM element موجود با استفاده از تابع ```()data``` نشان می دهد:
+
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<p>D3 Tutorials</p>
+
+<script>
+        var myData = ["Hello World!"];
+     
+        var p = d3.select("body")
+            .selectAll("p")
+            .data(myData)
+            .text(function (d) {
+                return d;
+            });
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-21)
+  
+  </div>
+
+در مثال بالا یک آرایه دیتا به نام 'MyData' با استفاده از یک استرینگ "Hello World" ساختیم و می خواهیم آن را به ```<p>``` وصل کنیم.
+نحوه کارکرد آن به شکل زیر است:
+
+تابع ```d3.select("body")``` آن HTML Body element را انتخاب می کند.
+
+
+تابع ```selectAll("p").``` آن paragraph element را انتخاب می کند.
+
+تابع ```data(myData).``` آرایه دیتا 'MyData' را به موارد انتخاب شده توسط متد  های قبل وصل می کند.
+
+تابع ```;text(function(d, i) { return d; }).``` دیتا را به صورت متنی به هر کدام از element های انتخاب شده اضافه می کند. در این مورد متن اولیه که 'D3 tutorial' بود با 'Hello World' جایگزین می شود.
+
+به یاد داشته باشید که ورودی تابع ```()data``` باید آرایه باشد. اگر یک مقدار ثابت را به عنوان ورودی بدهید کاری نمی کند.
+
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<p> </p>
+<script>
+    var myData = 100;
+     
+        var p = d3.select("body")
+                .selectAll("p")
+                .data(myData)
+                .text(function (d, i) {
+                    return d;
+                });
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-22)
+  
+  </div>
+
+در مثال بالا چیزی را نمایش نمی دهد چون تابع ```()data``` یک آرایه نیاز دارد.
+
+
+مثال زیر وصل کردن دیتا را برای دستکاری کردن چند element نشان می دهد.
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<p> </p>
+<p> </p>
+<p> </p>
+<script>
+    var myData = ["Hello World!", "Hello D3","Hello JavaScript"];
+     
+        var p = d3.select("body")
+                .selectAll("p")
+                .data(myData)
+                .text(function (d, i) {
+                    return d;
+                });
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-23)
+  
+  </div>
+
+
+  در مثال بالا سه ```<p>``` وجود دارد و آرایه دیتا myData نیز سه مقدار دارد. بنابراین تابع ```()data``` سه مقدار را به سه  ```<p>```  مشخص شده وصل می کند. سپس تابع ```()text``` آن ها را به صورت متن نمایش می دهد.
+
+
+<br>
+
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+    <p>D3 Tutorials </p>
+
+    <script>
+        var myData = [1, 2, 3, 4, 5];
+     
+         var p = d3.select("body")
+                   .selectAll("p")
+                   .data(myData)
+                   .text(function (d, i) {
+                        return d;
+                    });
+    </script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-24)
+  
+  </div>
+  
+در این مثال آرایه ۵ عضو دارد ولی ما فقط یک ```<p>``` داریم. در این حالت اولین عنصر سر جای خودش قرار می‌گیرد و بقیه‌ی عناصر نادیده گرفته می‌ شوند.
+
+<br>
+
+## enter()
+
+در مثال بالا دیدیم که ممکن است که تناظر یک به یک میان element ها و اعضای آرایه برقرار نشود و تعداد یکی از اعضای آرایه یا عناصر DOM بیشتر از دیگری باشد.
+
+تابع enter به صورت پویا placeholder هایی را برای داده‌ ها می ‌سازد. خروجی تابع enter می‌ تواند وارد تابع  append شود. تابع append برای داده‌هایی که element متناظر در DOM ندارند،  DOM element می‌سازد.
+
+اگر تناظر وجود نداشت و ما از تابع enter استفاده نکردیم مانند مورد قبل عمل کرده و آن element هایی که وجود ندارند انجام نمی شود.
+
+در مثال زیر آرایه‌ی ما شش عضو دارد. تابع enter، شش رفرنس placeholder می‌سازد و سپس تابع append شش  span element می‌سازد.
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+<script>
+    var data = [4, 1, 6, 2, 8, 9];
+    var body = d3.select("body")
+                .selectAll("span")
+                .data(data)
+                .enter()
+                .append("span")
+                .text(function(d) { return d + " "; });
+</script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-25)
+  
+  </div>
+
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/data-binding3.png"/></p>
+در این مثال همانند قبل یک آرایه با شش عضو به شکل [4,1,6,2,8,9] گرفتیم و برنامه ما به شکل زیر کار می کند:
+
+تابع ```d3.select("body")``` بخش HTML body را انتخاب می کند.
+
+تابع ```selectAll("span").``` چون تا الان هیچ span elementای وجود ندارد یک آرایه خالی برمی گرداند.
+
+سپس با تابع ```data(data).``` آرایه دیتای خود را به ```()data``` می دهیم. 
+
+تابع ```()enter.``` دنبال element های ```<span>``` می گردد. چون چیزی را پیدا نمی کند، یک span برای هر کدام از پنج عضو آرایه می سازد.
+
+تابع ```append("span")``` آن span هایی که در مرحله قبل ساخته شد را به body اضافه می کند.
+
+در نهایت تابع ```;text(function(d, i) { return d; }).``` هر کدام از اعداد درون آرایه را به شکل text به هرکدام از span های انتخاب شده اضافه کرده و آن ها را چاپ می کند.
+
+<br>
+
+حال منطق را به برنامه خود اضافه کرده و اعداد را اگر زوج بودند به رنگ سبز و در غیر این صورت به رنگ قرمز در می آوریم
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+<script>
+    var data = [4, 1, 6, 2, 8, 9];
+    var body = d3.select("body")
+                 .selectAll("span")
+                 .data(data)
+                 .enter().append("span")
+                 .style('color', function(d) {
+                     if (d % 2 === 0) {
+                         return "green";
+                     } else {
+                         return "red";
+                     }
+                 })
+                 .text(function(d) { return d + " "; });
+</script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-26)
+  
+  </div>
+
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/data-binding4.png"/></p>
+
+  چیزی که اضافه کردیم تابع ```()style``` به همراه منطق خود است.
+
+  تابع ```()style``` روی هر  DOM element به ازای هر مقدار آرایه اجرا می‌ شود و مقدار color را بسته به زوج یا فرد بودن عدد مشخص می‌ کند.
+
+<br>
+
+همانطور که گفتیم ورودی تابع ```()data``` می تواند یک تابع باشد:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+    <script>
+        var matrix = [
+                        [1, 2, 3, 4],
+                        [5, 6, 7, 8],
+                        [9, 10, 11, 12],
+                        [13, 14, 15, 16]
+                    ];
+
+        var tr = d3.select("body")
+            .append("table")  // adds <table>
+            .selectAll("tr")  // selects all <tr>
+            .data(matrix)      // joins matrix array 
+            .enter()           // create placeholders for each row in the array
+            .append("tr");// create <tr> in each placeholder
+
+        var td = tr.selectAll("td")
+            .data(function (d) {    // joins inner array of each row
+                console.log(d);
+                return d;
+            })
+            .enter()    // create placeholders for each element in an inner array
+            .append("td") // creates <td> in each placeholder
+            .text(function (d) {
+                console.log(d);
+                return d; // add value of each inner array as a text in <td>
+            });
+    </script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-27)
+  
+  </div>
+
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/data-binding7.png"/></p>
+
+
+در مثال بالا تابع ```tr.selectAll("td)``` تعدادی ```<td>``` را به ازای انتخاب هر ```<tr>``` خروجی می دهد و گروه های متفاوت ```<tr><td></td></tr>``` ساخته می شوند. پارامتر d در تابع ```text(function(d))``` نشان دهنده یک element تکی از یک ردیف است که توسط تابع ```()data``` قبلی خروجی داده شده است.
+
+<br>
+
+## exit()
+
+تابع ```()enter``` در صورت کمبود element ها در element، DOM های جدیدی را اضافه می‌کرد. حال اگر  DOM elemnt ها تعدادشان زیاد باشد و تعدادی از آن‌ها اضافه باشند، می‌ توانیم از تابع ```()exit``` استفاده کنیم. تابع exit عناصر اضافی را پردازش می‌ کند و آن‌ها را مشخص می‌ کند. تابع remove نیز element هایی که مشخص شده‌ اند را حذف می‌ کند. در مثال زیر می‌ بینیم که ابتدا ```()exit``` فرا خوانده  می‌ شود و سپس با ```()remove``` آن‌ها حذف می‌ شوند.
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+    <p>D3 Tutorials</p>
+    <p></p>
+    <p></p>
+    <script>
+    
+    var myData = ["Hello World!"];
+
+    var p = d3.select("body")
+                .selectAll("p")
+                .data(myData)
+                .text(function (d, i) {
+                    return d;
+                })
+                .exit()
+                .remove();
+    </script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-28)
+  
+  </div>
+
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/data-binding1.png"/></p>
+
+  در این مثال آرایه ما تنها یک عضو دارد در حالی که دو ```<p>``` داریم بنابراین ```()exit().remove.``` آن  ```<p>``` اضافه را حذف می کند.
+
+  <br>
+
+  ## datum()
+
+تابع ```()datum``` برای visualization های static استفاده می شود که نیازی به update ندارند و مستقیم دیتا را به یک element وصل می کند.
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<body>
+    <p>D3 Tutorials</p>
+    <script>
+
+    d3.select("body")
+        .select("p")
+        .datum(100)
+        .text(function (d, i) {
+            return d;
+        });
+    </script>
+</body>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-29)
+  
+  </div>
+
+  برای اطلاعات بیشتر در مورد Data Joining در D3 به [اینجا](https://github.com/d3/d3-selection/blob/master/README.md#joining-data)
+   مراجعه کنید.
+
+   <br>
+   <br>
+
+   # Load Data from File
+
+   در این بخش یاد می گیریم چگونه دیتا را از انواع مختلف فایل load کرده و آن ها را به DOM element ها وصل کنیم.
+
+   کتابخانه D3 متد های متفاوتی را برای load کردن نوع های مختلف دیتا دارد:
+
+   ## d3.csv()
+
+   ما می توانیم یک csv file را با استفاده از این متد load کنیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+d3.csv(url[, row, callback]);
+  ```  
+  </div>
+
+  در اینجا اولین پارامتر، url مربوط به فایل csv یا webapi یا webservice است که دیتا csv بر می گرداند. دومین پارامتر که اختیاری است، یک تابع conversion است که با آن می توانیم نمایش  آن دیتا را تغییر دهیم. سومین پارامتر که اختیاری است، یک تابع callback است که هرگاه فابل ما load شد اجرا می شود و به عنوان ورودی data object که parse شده است را دریاف می کند.
+
+  <br>
+
+  حال به نحوه load شدن یک فایل csv با محتویات زیر به نام employees.csv می پردازیم.
+  <div  dir='ltr'  align='justify'>
+
+  ```csv
+Name, Age
+John, 30
+Jane, 32
+  ```  
+  </div>
+
+  <br>
+
+  <div  dir='ltr'  align='justify'>
+
+  ```html
+<script>
+d3.csv("/data/employees.csv", function(data) {
+    for (var i = 0; i < data.length; i++) {
+        console.log(data[i].Name);
+        console.log(data[i].Age);
+    }
+});
+</script>
+  ```  
+  </div>
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/loading-csv-data.png"/></p>
+
+  در مثال بالا تابع ```()d3.csv``` نام فایل را به عنوان ورودی دریافت می کند.و آن را به صورت آرایه ای از object ها load می کند. دقت کنید که اولین ردیف از فایل csv چاپ نشده است، این به این دلیل است که اولین ردیف از فایل های csv به عنوان نام ستون ها در نظر گرفته می شود. data objectای که load شده نام ستون ها را به را به عنوان object key دارد.
+
+  حال اگر loop را با تابع ```()console.log``` جایگزین کنیم:
+
+   <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.csv("/data/employees.csv", function(data) {
+    console.log(data);
+});
+  ```  
+  </div>
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/loading-csv-data2.png"/></p>
+
+  تابع ```()d3.csv``` دیتا را به صورت یک object بر می گرداند. این object آرایه ای از object ها است که از فایل csv شما load شده است که هر کدام از آن ها نشان دهنده یک ردیف هستند.
+
+  همچنین کد بالا معادل زیر است:
+
+   <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.csv("/data/employees.csv")
+  .get(function(data) {
+        console.log(data);
+  });
+  ```  
+  </div>
+
+  شما می توانید به جای ```()d3.csv``` از ```()d3.request``` استفاده کنید:
+
+ <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.request("/data/employees.csv")
+  .mimeType("text/csv")
+  .response(function (xhr) { return d3.csvParse(xhr.responseText); })
+  .get(function(data) {
+      console.log(data);
+  });
+  ```  
+  </div>
+
+
+  همچنین می توانید از پارامتر row برای تغییر نمایش دیتا اسنفاده کنید. برای مثال مورد زیر name ها را uppercase می کند:
+
+ <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.csv("/data/employees.csv")
+  .row(function(d) {
+        return {
+            age: d.age,
+            name: d.name.toUpperCase() // converting name to upper case 
+        }; 
+   })
+  .get(function(data) {
+      console.log(data);
+  });
+  ```  
+  </div>
+
+  <br>
+
+  ## d3.json()
+
+  دیتای  JSON می تواند یک object تکی یا آرایه ای از JSON object ها باشد:
+  
+  JSON object:
+
+ <div  dir='ltr'  align='justify'>
+
+  ```json
+var nameObj = {
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+};
+  ```  
+  </div>
+
+
+  JSON Array:
+
+ <div  dir='ltr'  align='justify'>
+
+  ```json
+var nameArray = [{
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+},
+{
+    "name": "Jane",
+    "age": 20,
+    "city": "San Francisco"
+}];
+  ```  
+  </div>
+
+  تابع ```()d3.json``` یک فایل JSON را به عنوان ورودی گرفته و آن را به آرایه ای از object ها تبدیل می کند.
+
+   <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.json(url, callback);
+  ```  
+  </div>
+
+  اولین پارامتر url یک فایل JSON است و دومین پارامتر یک تابع callback است که مانند تابع callback در ```()d3.csv``` عمل می کند.
+
+  
+  حال به نحوه load شدن یک فایل JSON با محتویات زیر به نام users.json می پردازیم.
+  
+
+  <div  dir='ltr'  align='justify'>
+
+  ```json
+[{
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+},
+{
+    "name": "Jane",
+    "age": 20,
+    "city": "San Francisco"
+}];
+  ```  
+  </div>
+
+  حال این فایل را با استفاده از تابع ```d3.json``` دریافت  می کنیم:
+
+  <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.json("/data/users.json", function(data) {
+    console.log(data);
+});
+  ```
+  
+  </div>
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/loading-json-data.png"/></p>
+
+  همانطور که می بینید آرایه ای از object ها با ویژگی های name, city, age ساخته شد.
+
+  <br>
+
+  ## d3.tsv()
+
+  <div  dir='ltr'  align='justify'>
+
+  ```
+d3.tsv(url, callback);
+  ```  
+  </div>
+
+اولین پارامتر url یک فایل tsv است و دومین پارامتر یک تابع callback است که مانند تابع callback در ```()d3.csv``` عمل می کند.
+
+
+  حال به نحوه load شدن یک فایل tsv با محتویات زیر به نام employees.tsv می پردازیم.
+
+  <div  dir='ltr'  align='justify'>
+
+  ```tsv
+Name    Age
+John    30
+Jane    32
+  ```
+  
+  </div>
+
+
+  حال این فایل را با استفاده از تابع ```()d3.tsv``` دریافت می کنیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```js
+d3.tsv("/data/employees.tsv", function(data) {
+    for (var i = 0; i < data.length; i++) {
+        console.log(data[i].Name);
+        console.log(data[i].Age);
+    }
+});
+  ```  
+  </div>
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/loading-tsv-data.png"/></p>
+
+  <br>
+
+
+
+  ## d3.xml
+
+<div  dir='ltr'  align='justify'>
+
+  ```
+d3.xml(url, callback);
+  ```  
+  </div>
+
+اولین پارامتر url یک فایل xml است و دومین پارامتر یک تابع callback است که مانند تابع callback در ```()d3.csv``` عمل می کند.
+
+
+  حال به نحوه load شدن یک فایل xml با محتویات زیر به نام employees.xml می پردازیم.
+
+  <div  dir='ltr'  align='justify'>
+
+  ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<row>
+    <Name>John</Name>
+    <Age>30</Age>
+</row>
+<row>
+    <Name>Jane</Name>
+    <Age>32</Age>
+</row>
+</root>
+  ```  
+  </div>
+
+  حال این فایل را با استفاده از تابع ```()d3.xml``` دریافت می کنیم:
+
+  <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.xml("/data/employees.xml", function(data) {
+        console.log(data);
+});
+  ```
+  </div>
+
+  همچنین می توانید به شکل زیر این فایل را parse و traverse کنید:
+
+   <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.xml("\data\employees.xml", function(data) {
+        console.log(xml.documentElement.getElementsByTagName("Name", "));
+});
+  ```  
+  </div>
+
+این کد همه تگ هایی که tag name آن ها برابر یا "Name" باشد را به شما می دهد.
+
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/loading-xml-data.png"/></p>
+
+  <br>
+
+  ## Bind Loaded Data
+
+  برای ادامه این بخش با فایل JSON زیر کار می کنیم:
+
+   <div  dir='ltr'  align='justify'>
+
+  ```json
+[{
+    "name": "Jon",
+    "age": 30,
+    "location": "The Wall"
+},
+{
+    "name": "Arya",
+    "age": 12,
+    "location": "Braavos"
+},
+{
+    "name": "Cersei",
+    "age": 42,
+    "location": "Kings Landing"
+},
+{
+    "name": "Tyrion",
+    "age": 40,
+    "location": "Kings Landing "
+}]
+  ```  
+  </div>
+
+  این یک آرایه از person object ها است که هر object دارای name, age, location است.
+  
+  حال آن را load کرده و به DOM element ها وصل می کنیم:
+   <div  dir='ltr'  align='justify'>
+
+  ```js
+d3.json("/data/users.json", function(error, data) {
+    
+    d3.select("body")
+        .selectAll("p")
+        .data(data)
+        .enter()
+        .append("p")
+        .text(function(d) {
+            return d.name + ", " + d.location;
+        });
+
+});
+  ```  
+  </div>
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/bind-loaded-data.png"/></p>
+
+
+  در ابتدا فایل را با استفاده از تابع ```d3.json()``` لود کردیم. این تابع یک data object  برمی گرداند.
+
+  با استفاده از تابع ```d3.select("body")``` آن body element را انتخاب کرده و آن را به تابع بعدی پاس می دهیم.
+
+  تابع ```selectAll("p").``` همه تگ های ```<p>``` را انتخاب کرده و رفرنس آن ها را به تابع بعدی پاس می دهد.
+
+
+
+
+
+
+
+  تابع ```data(data).``` مفادیر دیتا را از دیتاست ما به متد بعدی در این زنجیره پاس می دهد.
+
+  تایع ```()enter.``` مقادیر دیتا را از تابع ```()data.``` گرفته و چون تعداد تگ های ```<p>``` ما کافی نیست ، این تابع placeholde reference های خالی را به element های جدید بر می گرداند. (همانطور که در بخش Data Binding  دیدیم)
+
+تابع ```append("p")``` این رفرنس ها را دریافت کرده و element های جدید را به DOM اضافه می کند.
+ 
+  درانتها نیز تابع ```()text.``` فراخوانده می شود و با توجه به تابعی کع به عنوان ورودی گرفته، یک concatenation از name , location از data object را چاپ می کند.
+
+  <br>
+
+  ## Error Handling
+
+هنگامی که دیتا را load می کنیم، تابع مورد نظر یک argument  دیگر به نام "error" بر می گرداند که ما می توانیم از آن برای بررسی موفقیت آمیز بودن load شدن دیتا استفاده کنیم:
+
+<div  dir='ltr'  align='justify'>
+
+  ```js
+d3.json("/data/users.json", function(error, data) {
+    
+    if (error) {
+        return console.warn(error);
+    }
+
+    d3.select("body")
+            .selectAll("p")
+            .data(data)
+            .enter()
+            .append("p")
+            .text(function(d) {
+                return d.name + ", " + d.location;
+            });
+    });
+  ```  
+  </div>
+  اگر مشکلی هنگام load کردن دیتا وجود داشته باشد D3  یک error object  برمی گرداند.
+
+
+# Scales
