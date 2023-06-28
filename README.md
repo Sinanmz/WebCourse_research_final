@@ -154,7 +154,8 @@ SVG = Scalable Vector Graphics
 
 
 
-
+<br>
+<br>
 
 # Install D3.js
 
@@ -251,15 +252,19 @@ SVG = Scalable Vector Graphics
 <div  dir='ltr'  align='justify'>
 
   ```html
-
+<p>First paragraph</p>
+<p>Second paragraph</p>
+<script>
+    d3.selectAll("p").style("color", "green");
+</script>
   ```
-  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-6)
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-3)
 
   </div>
 
   در مثال بالا ```d3.selectAll("p")``` همه ```<p>``` ها را خروجی می دهد و در ادامه رنگ آن ها به شکل مثال های قبل تغییر می کند.
 
-  <p align="center"><img src=""/></p>
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/d3js-dom3.png"/></p>
 
   ### Select All Elements by CSS Class Name
 
@@ -268,15 +273,26 @@ SVG = Scalable Vector Graphics
 <div  dir='ltr'  align='justify'>
 
   ```html
+<style>
+    .myclass{
+        color:'red'
+    }
+</style>
+<p class="myclass ">First paragraph</p>
+<p>Second paragraph</p>
+<p class="myclass ">Third paragraph</p>
 
+<script>
+    d3.selectAll(".myclass ").style('color','green');
+</script>
   ```
-  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-6)
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-4)
 
   </div>
 
   در مثال بالا ```d3.selectAll(".myclass")``` همه element هایی که  css class آن ها برابر با "myclass" باشد را بر می گرداند و در ادامه تغییر رنگ آن ها مشابه مثال های قبل است.
 
-  <p align="center"><img src=""/></p>
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/d3js-dom4.png"/></p>
 
 
 ### Select Nested Elements
@@ -286,13 +302,34 @@ SVG = Scalable Vector Graphics
 <div  dir='ltr'  align='justify'>
 
   ```html
+<table>
+<tr>
+    <td>
+        One
+    </td>
+    <td>
+        Two
+    </td>
+</tr>
+<tr>
+    <td>
+        Three
+    </td>
+    <td>
+        Four
+    </td>
+</tr>
+</table>
 
+<script>
+    d3.select("tr").selectAll("td").style('background-color','yellow');
+</script>
   ```
-  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-6)
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-5)
 
   </div>
 
-  <p align="center"><img src=""/></p>
+  <p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/d3js-dom5.png"/></p>
 
 در مثال بالا ```d3.select("tr)``` اولین تگ ```<tr>``` را انتخاب کرده، سپس ```selectAll("td")``` همه تگ های ```<td>``` موجود در آن را بر می گرداند. در نهایت متد ```()style.``` رنگ بکگراند آن ```<td>``` ها را به رنگ زرد در می آورد.
 
