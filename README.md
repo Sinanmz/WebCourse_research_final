@@ -11,7 +11,7 @@
 
 - [What is D3.js](#what-is-d3js)
 
-- [Web Standards: HTML, CSS, JavaScript](#web-standards:-html,-css,-javascript)
+- [Web Standards](#web-standards)
  
 - [Install D3.js](#install-d3js)
 
@@ -44,15 +44,276 @@
 
   
 # What is D3.js
+اسم D3 مخفف Data-Driven Doccuments بوده و یک کتابخانه opensource برای JavaScript است و برای تصویر سازی دیتا در مرورگر با استفاده از SVG, HTML و CSS نوشته شده است.
+
+با توجه به حجم عظیمی از دیتا که امروزه تولید می شود، ارتباط برقرار کردن و انتقال اطلاعات با آن مشکل شده است.
+نمایش تصویری دیتا موثر ترین روش برای این هدف است. کتابخانه D3 ابزار های زیادی برای این کار را در اختیار ما قرار می دهد.
+
+<br>
+
+نمونه نمودار ها و تصویر سازی هایی که می توان با D3 انجام داد:
+<br>
+
+Bar Chart:
+
+<p align="center"><img src="https://gist.githubusercontent.com/mbostock/4062085/raw/d422852a871bf88dffb4fcc5fd5ac913ec3cea3a/thumbnail.png"/></p>
 
 
-# Web Standards: HTML, CSS, JavaScript
+
+Bubble Chart:
+
+
+<p align="center"><img src="https://gist.githubusercontent.com/mbostock/4063269/raw/b0ae046c99cc70205a659e902d32740758c4dc8f/thumbnail.png"/></p>
+
+
+
+Circle Packing:
+
+<p align="center"><img src="https://gist.githubusercontent.com/mbostock/4063530/raw/3d8c87f265a03da8b76e24d0eb2512eee334dcbb/thumbnail.png"/></p>
+
+
+Stream Graph:
+
+<p align="center"><img src="https://gist.githubusercontent.com/mbostock/4060954/raw/381b350b27ca2df1864d02c3f08130fdcef4ab6a/preview.jpg"/></p>
+
+در انتها با نحوه رسم Bar Chart آشنا می شویم.
+
+<br>
+<br>
+
+# Web Standards
+
+قبل از این که کار با D3 را شروع کنیم نیاز داریم با Web Standard ها آشنا باشیم.
+
+موارد زیر در D3  به مقدار زیادی استفاده شده و به طور خلاصه به آن ها می پردازیم:
+
+- HTML
+
+- DOM
+
+- CSS 
+
+- SVG
+
+- JavaScript
+
+<br>
+
+## HTML
+
+HTML = HyperText Markup Language
+
+برای ساختار بخشیدن به محتوای یک صفحه وب استفاده می شود. 
+
+یک نمونه خیلی ساده از یک فایل HTML به شکل زیر است:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+  ```
+  </div>
+
+<br>
+
+  ## DOM 
+  DOM = Document Object Model
+
+وقتی که برای صفحه خود  کد HTML می نویسید، در مرورگر شما به یک ساختار سلسله مراتبی تبدیل می شود. هر تگ  HTML شما به یک element در DOM تبدیل شده که دارای ساختار سلسله مراتبی پدر-فرزندی است. وقتی که این ساختار شکل بگیرد، دستکاری کردن هر DOM element راحت تر می شود.
+
+<br>
+
+## CSS
+
+CSS = Cascading Style Sheets
+
+در حالی که HTML باعث اضافه شدن ساخنار به صفحه شما می شود، CSS باعث اضافه شدن style به صفحه شما شده و آن را زیبا تر می کند. در واقع CSS نحوه  render شدن اجزا را تعیین می کند.
+
+<br>
+
+## SVG
+
+SVG = Scalable Vector Graphics
+
+یک روش تولید تصویر با استفده از text است. در واقع یک راه برای render کردن تصویر روی صفحه شما است.
+
+<br>
+
+## JavaScript
+
+یک زبان Scripting است که در سمت کلاینت اجرا شده و می تواند با HTML element ها یا DOM element ها ارتباط برقرار کند.
+
+
+
 
 
 # Install D3.js
 
+برای استفاده از D3  کار های زیر را انجام دهید:
+- به وبسایت D3 مراجعه کنید.
+- آخرین ورژن از d3 (d3.zip) را دانلود کنید.
+
+<p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/d3js.png"/></p>
+
+- حال فایلی که در مرحله قبل دانلود کردید را unzip کرده و در از فایل های ایجاد شده، دنبال فایل d3.min.js بگردید و آن را در دایرکتوری root پروژه خود قرار دهید.
+- برای استفاده از آن، d3.miin.js را در فایل HTML خود include کنید:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../d3.min.js"></script>
+</head>
+<body>
+
+<script>
+    // write your d3 code here.. 
+</script>
+</body>
+</html>
+  ```
+  </div>
+
+<br>
+
+<br>
 
 # Select DOM Element
+
+برای اینکه بتوانبم DOM element ها را دستکاری کنیم ابتدا باید بتوان آن ها را انتخاب کرد. کتابخانه D3 متد هایی برای این کار را دارد که به آن ها می پردازیم.
+
+## d3.select(css-selector)
+
+این متد اولین element را بر اساس css-selector ورودی، خروجی می دهد.
+
+### Select Element By Name
+
+به مثال زیر دقت کنید:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<p>First paragraph</p>
+<p>Second paragraph</p>
+
+<script>
+    d3.select("p").style("color", "green");
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-1)
+
+  </div>
+
+در مثال بالا ```d3.select("p")``` اولین ```<p>``` را بر می گرداند، سپس  ```style("color","green").``` رنگ آن را تغییر می دهد، به عبارت دیگر color attribute آن را برابر با green قرار می دهد.
+
+<p align="center"><img src="https://www.tutorialsteacher.com/Content/images/d3js/d3js-dom1.png"/></p>
+
+
+### Select Element By ID
+
+به مثال زیر دقت کنید:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+<p id="p1">First paragraph</p>
+<p id="p2">Second paragraph</p>
+
+<script>
+    d3.select("#p2").style("color", "green");
+</script>
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-2)
+
+  </div>
+
+در مثال بالا متد ```d3.select("#p2")``` تنها element ای را انتخاب می کند که id آن برابر با p2 باشد. ادامه فرایند هم مثل مورد قبل است.
+
+<br>
+
+## d3.selectAll(css-selector)
+
+این متد همه element هایی که شرایط css-selector مشخص شده را داشته باشند را بر می گرداند.
+
+به مثال زیر دقت کنید:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-6)
+
+  </div>
+
+  در مثال بالا ```d3.selectAll("p")``` همه ```<p>``` ها را خروجی می دهد و در ادامه رنگ آن ها به شکل مثال های قبل تغییر می کند.
+
+  <p align="center"><img src=""/></p>
+
+  ### Select All Elements by CSS Class Name
+
+به مثال زیر دقت کنید:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-6)
+
+  </div>
+
+  در مثال بالا ```d3.selectAll(".myclass")``` همه element هایی که  css class آن ها برابر با "myclass" باشد را بر می گرداند و در ادامه تغییر رنگ آن ها مشابه مثال های قبل است.
+
+  <p align="center"><img src=""/></p>
+
+
+### Select Nested Elements
+
+متد های ```()d3.select``` و ```()d3.selectAll``` می توانند برای انتخاب element های تو در تو استفاده شوند:
+
+<div  dir='ltr'  align='justify'>
+
+  ```html
+
+  ```
+  [امتحان کردن کد](https://www.tutorialsteacher.com/codeeditor?cid=d3-6)
+
+  </div>
+
+  <p align="center"><img src=""/></p>
+
+در مثال بالا ```d3.select("tr)``` اولین تگ ```<tr>``` را انتخاب کرده، سپس ```selectAll("td")``` همه تگ های ```<td>``` موجود در آن را بر می گرداند. در نهایت متد ```()style.``` رنگ بکگراند آن ```<td>``` ها را به رنگ زرد در می آورد.
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # DOM Manipulation
