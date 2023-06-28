@@ -444,7 +444,7 @@ SVG = Scalable Vector Graphics
 <br>
 
 ## remove()
-از ```d3.selection.remove()``` برای پاک کردن DOM element های انتخاب شده می توانید استفاده کنید.
+از ```()d3.selection.remove``` برای پاک کردن DOM element های انتخاب شده می توانید استفاده کنید.
 
 <div  dir='ltr'  align='justify'>
 
